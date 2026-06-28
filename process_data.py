@@ -15,14 +15,17 @@ for file in os.listdir(data_folder):
         # Read CSV
         df = pd.read_csv(file_path)
 
-        # Remove Pink Morsel rows
-        df = df[df["product"] != "pink morsel"]
+        # Keep only Pink Morsel products
+        df = df[df["product"].str.lower() == "pink morsel"]
 
         # Remove dollar sign and convert price to float
         df["price"] = df["price"].replace("[$]", "", regex=True).astype(float)
 
         # Calculate sales
         df["sales"] = df["quantity"] * df["price"]
+
+        # Convert date format
+        df["date"] = pd.to_datetime(df["date"]).dt.strftime("%Y-%m-%d")
 
         # Keep required columns
         df = df[["sales", "date", "region"]]
