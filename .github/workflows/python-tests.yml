@@ -7,7 +7,6 @@ on:
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -26,7 +25,7 @@ jobs:
           pip install pytest
 
       - name: Run Tests
-  env:
-    PYTHONPATH: ${{ github.workspace }}
-  run: |
-    python -m pytest
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: |
+          python -m pytest
